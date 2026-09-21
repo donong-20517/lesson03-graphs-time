@@ -270,7 +270,7 @@ movie_summary = (
     df.groupby("영화명")
     .agg(
         기간_일관객=("일관객", "sum"),
-        10위권_등장일수=("날짜", "nunique"),
+        days_in_top10=("날짜", "nunique"),
     )
     .reset_index()
     .sort_values("기간_일관객", ascending=False)
@@ -290,7 +290,7 @@ fig4 = px.bar(
     },
     hover_data={
         "기간_일관객": ":,",
-        "10위권_등장일수": True,
+        "days_in_top10": True,
     },
 )
 
@@ -301,7 +301,7 @@ fig4.update_traces(
         "10위권에 든 날수: %{customdata[0]}일"
         "<extra></extra>"
     ),
-    customdata=movie_summary[["10위권_등장일수"]].to_numpy(),
+    customdata=movie_summary[["days_in_top10"]].to_numpy(),
 )
 
 fig4.update_layout(
